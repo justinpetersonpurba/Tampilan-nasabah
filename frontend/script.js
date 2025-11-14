@@ -13,14 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
             isBalanceHidden = !isBalanceHidden;
             
             if (isBalanceHidden) {
-                // Sembunyikan saldo
-                balanceCard.classList.add('balance-hidden');
-                toggleBalanceBtn.innerHTML = '<i class="fas fa-eye"></i> Buka Saldo';
+                // Sembunyikan saldo dengan titik-titik
+                balanceAmount.textContent = '**********';
+                balanceValues.forEach(value => {
+                    value.textContent = '*****';
+                });
+                toggleBalanceBtn.innerHTML = '<i class="fas fa-eye"></i> Tampilkan Saldo';
                 toggleBalanceBtn.classList.remove('btn-primary');
                 toggleBalanceBtn.classList.add('btn-secondary');
             } else {
-                // Tampilkan saldo
-                balanceCard.classList.remove('balance-hidden');
+                // Tampilkan saldo asli
+                balanceAmount.textContent = 'Rp 12.500.000';
+                const originalValues = ['Rp 42.394', 'Rp -'];
+                balanceValues.forEach((value, index) => {
+                    value.textContent = originalValues[index];
+                });
                 toggleBalanceBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tutup Saldo';
                 toggleBalanceBtn.classList.remove('btn-secondary');
                 toggleBalanceBtn.classList.add('btn-primary');
@@ -37,23 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const transactionDate = this.querySelector('.transaction-date').textContent;
             
             alert(`Detail Transaksi:\n\n${transactionTitle}\n${transactionAmount}\n${transactionDate}`);
-        });
-    });
-    
-    // Menambahkan interaksi pada menu sidebar
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Hapus class active dari semua link
-            sidebarLinks.forEach(l => l.classList.remove('active'));
-            
-            // Tambah class active ke link yang diklik
-            this.classList.add('active');
-            
-            const menuName = this.querySelector('span').textContent;
-            alert(`Anda memilih menu: ${menuName}`);
         });
     });
     
