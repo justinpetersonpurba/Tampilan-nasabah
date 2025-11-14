@@ -1,13 +1,32 @@
 // Menambahkan interaksi sederhana
 document.addEventListener('DOMContentLoaded', function() {
-    // Menambahkan efek klik pada kartu aksi cepat
-    const actionCards = document.querySelectorAll('.action-card');
-    actionCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const actionName = this.querySelector('h3').textContent;
-            alert(`Anda memilih: ${actionName}`);
+    // Fitur toggle saldo
+    const toggleBalanceBtn = document.getElementById('toggleBalance');
+    const balanceCard = document.querySelector('.balance-card');
+    const balanceAmount = document.querySelector('.balance-amount');
+    const balanceValues = document.querySelectorAll('.balance-value');
+    
+    let isBalanceHidden = false;
+    
+    if (toggleBalanceBtn) {
+        toggleBalanceBtn.addEventListener('click', function() {
+            isBalanceHidden = !isBalanceHidden;
+            
+            if (isBalanceHidden) {
+                // Sembunyikan saldo
+                balanceCard.classList.add('balance-hidden');
+                toggleBalanceBtn.innerHTML = '<i class="fas fa-eye"></i> Buka Saldo';
+                toggleBalanceBtn.classList.remove('btn-primary');
+                toggleBalanceBtn.classList.add('btn-secondary');
+            } else {
+                // Tampilkan saldo
+                balanceCard.classList.remove('balance-hidden');
+                toggleBalanceBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tutup Saldo';
+                toggleBalanceBtn.classList.remove('btn-secondary');
+                toggleBalanceBtn.classList.add('btn-primary');
+            }
         });
-    });
+    }
     
     // Menambahkan efek hover pada item transaksi
     const transactionItems = document.querySelectorAll('.transaction-item');
@@ -37,15 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(`Anda memilih menu: ${menuName}`);
         });
     });
-    
-    // Menambahkan interaksi pada tombol tutup saldo
-    const balanceButton = document.querySelector('.btn-primary');
-    if (balanceButton) {
-        balanceButton.addEventListener('click', function() {
-            const balanceAmount = document.querySelector('.balance-amount').textContent;
-            alert(`Saldo Anda: ${balanceAmount}\n\nFitur ini akan menutup tampilan saldo untuk keamanan.`);
-        });
-    }
     
     // Menambahkan interaksi pada view all transaksi
     const viewAllLink = document.querySelector('.view-all');
